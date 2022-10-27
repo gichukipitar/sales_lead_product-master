@@ -8,13 +8,6 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "products")
-@NamedQueries({
-        @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
-        , @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId")
-        , @NamedQuery(name = "Product.findByProductAmount", query = "SELECT p FROM Product p WHERE p.productAmount = :productAmount")
-        , @NamedQuery(name = "Product.findByProductCode", query = "SELECT p FROM Product p WHERE p.productCode = :productCode")
-        , @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName = :productName")})
-
 
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;

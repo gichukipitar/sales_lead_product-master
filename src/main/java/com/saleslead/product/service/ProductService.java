@@ -47,7 +47,7 @@ public class ProductService {
 
     private Product checkProduct(Long id){
     return productRepository.findById(id)
-            .orElseThrow(()-> new NoSuchElementException("the product is not available" +id));
+            .orElseThrow(()-> new NoSuchElementException("the product with id " +id +" is not available" ));
     }
     //get a list of all products
     public ResponseEntity<List<Product>> getProducts(){
@@ -59,30 +59,16 @@ public class ProductService {
 
     }
     public ResponseEntity<Product> getProductByName(String productName){
-        try {
-            Optional<Product> product = Optional.ofNullable(productRepository.findByProductName(productName));
-            //check if product exists in DB
-            if(product.isPresent()){
-                return new ResponseEntity<>(product.get(),HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        Optional<Product> country = Optional.ofNullable(Optional.ofNullable(productRepository.findByProductNameIgnoreCase(productName))
+                .orElseThrow(() -> new NoSuchElementException("product " + productName +  " not found" )));
+        return new ResponseEntity<>(country.get(), HttpStatus.OK);
+
     }
     public ResponseEntity<Product> getProductByCode(String productCode){
-        try {
-            Optional<Product> productC = Optional.ofNullable(productRepository.findByProductCode(productCode));
-            //check if product code exists in DB
-            if(productC.isPresent()){
-                return new ResponseEntity<>(productC.get(),HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        Optional<Product> country = Optional.ofNullable(Optional.ofNullable(productRepository.findByProductCodeIgnoreCase(productCode))
+                .orElseThrow(() -> new NoSuchElementException("product with code " + productCode +  " not found" )));
+        return new ResponseEntity<>(country.get(), HttpStatus.OK);
+
     }
 
 }

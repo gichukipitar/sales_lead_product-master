@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Data
 public class ProductUpdateVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    //private  Long id;
+    private  Long id;
     private  String productName;
     private  String productCode;
     private  Long productAmount;
